@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+
+/**
+ * Manages the requests for handling the product's business logic.
+ */
 @Slf4j
 @RestController
 @RequestMapping("products")
@@ -27,11 +31,23 @@ public class ProductController {
         return ResponseEntity.ok(productService.findAll());
     }
 
+    /**
+     * Creates a new Product.
+     *
+     * @param productDto the product dto.
+     * @return the product.
+     */
     @PostMapping
     public ResponseEntity create(@Valid @RequestBody CreateRequestDto productDto) {
         return ResponseEntity.ok(productService.save(new ModelMapper().map(productDto, Product.class)));
     }
 
+    /**
+     * Retrieves a product for the given id.
+     *
+     * @param id the product's id.
+     * @return the product.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Product> findById(@PathVariable Long id) {
         return this.productService.findById(id)
@@ -39,6 +55,13 @@ public class ProductController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    /**
+     * Updates a product.
+     *
+     * @param id         the product's id.
+     * @param productDto the product's dto.
+     * @return the product.
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Product> update(@PathVariable Long id, @Valid @RequestBody ProductDto productDto) {
 
@@ -66,6 +89,12 @@ public class ProductController {
 
     }
 
+    /**
+     * Deletes a product.
+     *
+     * @param id the product
+     * @return
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable Long id) {
         return this.productService.findById(id)

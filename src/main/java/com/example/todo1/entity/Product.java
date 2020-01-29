@@ -20,6 +20,9 @@ import java.util.Random;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+/**
+ * The product's entity class.
+ */
 public class Product {
 
     @Id
